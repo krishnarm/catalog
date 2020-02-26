@@ -67,7 +67,9 @@
 <script>
 $(document).ready(function () {
 
-	calCount();
+	calCount(); //Calculate number of packed and unpacked items 
+
+	//Search for Unpacked Items
 	$("#unpackSearch").on("keyup", function () {
 	var value = $(this).val().toLowerCase();
 		$("#unpackdiv *").filter(function () {
@@ -75,6 +77,7 @@ $(document).ready(function () {
 		});
 	});
 
+	//Search for Packed Items
 	$("#packedSearch").on("keyup", function () {
 	var value = $(this).val().toLowerCase();
 		$("#packed *").filter(function () {
@@ -91,11 +94,14 @@ $(document).ready(function () {
 		$('#countUnPack').text('Unpacked Items('+numUnpack+')');
 
 	});
+
+	//Remove Items
 	$(document).on("click",'.remove', function(){
 	    $(this).parent().remove();
 	    calCount();
   	});
 
+	//Add unpakced items to packed item list  
 	$(document).on('change',"#unpackdiv .chkBox" ,function(){
 	if($(this).is(':checked'))
 	{
@@ -106,6 +112,7 @@ $(document).ready(function () {
 	}
 	});
 
+	//Move packed items to unpacked item list
 	$(document).on('change',"#packed .chkBox" ,function(){
 	if ($(this).prop('checked')==false){ 
 	    var clone=$(this).parents('.checkbox').clone().find('.chkBox:checkbox').prop('checked' , false).end();
@@ -115,6 +122,7 @@ $(document).ready(function () {
 	}
 	});
 
+	//Unpack all packed item from the list
 	$('.unpackAll').click(function(){
 		var allItems = $("#packed").children().clone().find('.chkBox:checkbox').prop('checked' , false).end();
 		$('#unpackdiv').prepend(allItems);
