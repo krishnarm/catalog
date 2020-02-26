@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.checkbox {
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<body >
+	<h1 align="center">Coding Exercise</h1> 
+	<hr style="border:1px solid black;" >
+<div class="container" style="margin: auto; max-width: 403px;">
+  <div class="form-group mb-2">
+	<label  style="font-size: 18px;">Add a new item</label>
+    <input type="text" id="addItem" class="col-xs-9" placeholder="Enter an item name" style="border: 1px solid #f32e5b;">
+	<input type="submit" value="Add Item" class="submit col-xs-3" style="background-color: #d9534f;font-size: 14px;font-family: Verdana, Geneva, Tahoma, sans-serif;border: 2px solid #e10d3d;color: white;">
+  </div>
+  <div class="form-group mb-2">
+  <label id="countUnPack"  style="font-size: 18px;"></label>
+  <input class="col-xs-12" id="unpackSearch" type="text" placeholder="&#xF002; Search unpacked items" style="font-family:Arial, FontAwesome;border: 1px solid #f32e5b;"> 
+  </div>
+  <div id="unpackdiv">
+    <div class="checkbox" >
+	  <label><input type="checkbox" value="" class="chkBox"><p class="itemadd">Pant</p></label>
+	  <button type="button" class="btn remove" style="color: #F65E81;font-size: 14px;margin: 0px 0px 0px 11px;background-color: transparent;">Remove</button>
+	</div>
+	<div class="checkbox" >
+  	<label><input type="checkbox" value="" class="chkBox"><p>Belt</p></label>
+  	<button type="button" class="btn remove" style="color: #F65E81;font-size: 14px;margin: 0px 0px 0px 11px;background-color: transparent;">Remove</button>
+	</div>
+	<div class="checkbox" >
+  	<label><input type="checkbox" value="" class="chkBox"><p>Passport</p></label>
+  	<button type="button" class="btn remove" style="color: #F65E81;font-size: 14px;margin: 0px 0px 0px 11px;background-color: transparent;">Remove</button>
+	</div>
+  </div>
+  <label id="countPack"  style="font-size: 18px;"></label>
+  <input class="col-xs-12" id="packedSearch" type="text" placeholder="&#xF002; Search packed items" style="font-family:Arial, FontAwesome;border: 1px solid #f32e5b;">
+  <div id="packed">
+    <div class="checkbox" >
+  	<label><input type="checkbox" value="" class="chkBox" checked ><p>Sandwich</p></label>
+  	<button type="button" class="btn remove" style="color: #F65E81;font-size: 14px;margin: 0px 0px 0px 11px;background-color: transparent;">Remove</button>
+	</div>
+	<div class="checkbox" >
+  	<label><input type="checkbox" value="" class="chkBox" checked ><p>Hat</p></label>
+  	<button type="button" class="btn remove" style="color: #F65E81;font-size: 14px;margin: 0px 0px 0px 11px;background-color: transparent;">Remove</button>
+	</div>
+	<div class="checkbox" >
+  	<label><input type="checkbox" value="" class="chkBox" checked ><p>MacBook</p></label>
+  	<button type="button" class="btn remove" style="color: #F65E81;font-size: 14px;margin: 0px 0px 0px 11px;background-color: transparent;">Remove</button>
+	</div>
+  </div>
+  <button type="submit" class="btn btn-danger unpackAll form-control">Mark All As Unpacked</button>
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function () {
+
+	calCount();
+	$("#unpackSearch").on("keyup", function () {
+	var value = $(this).val().toLowerCase();
+		$("#unpackdiv *").filter(function () {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+
+	$("#packedSearch").on("keyup", function () {
+	var value = $(this).val().toLowerCase();
+		$("#packed *").filter(function () {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+
+	//add new items
+	$('.submit').click(function(){
+		var item = $('#addItem').val();
+		var newItem = '<div class="checkbox"><label><input type="checkbox" value="" class="chkBox"><p>'+ item +'</p></label><button type="button" class="btn remove" style="color: #F65E81;font-size: 11px;margin: 0px 0px 0px 11px;">Remove</button></div>';
+		$("#unpackdiv").append(newItem);
+		var numUnpack = $("#unpackdiv").children('.checkbox').length;
+		$('#countUnPack').text('Unpacked Items('+numUnpack+')');
+
+	});
+	$(document).on("click",'.remove', function(){
+	    $(this).parent().remove();
+	    calCount();
+  	});
+
+	$(document).on('change',"#unpackdiv .chkBox" ,function(){
+	if($(this).is(':checked'))
+	{
+	    var clone=$(this).parents('.checkbox').clone().find('.chkBox:checkbox').prop('checked' , true).end();
+	    $('#packed').prepend(clone);
+	    $(this).parents('.checkbox').remove();
+	    calCount();
+	}
+	});
+
+	$(document).on('change',"#packed .chkBox" ,function(){
+	if ($(this).prop('checked')==false){ 
+	    var clone=$(this).parents('.checkbox').clone().find('.chkBox:checkbox').prop('checked' , false).end();
+	    $('#unpackdiv').prepend(clone);
+	    $(this).parents('.checkbox').remove();
+	    calCount();
+	}
+	});
+
+	$('.unpackAll').click(function(){
+		var allItems = $("#packed").children().clone().find('.chkBox:checkbox').prop('checked' , false).end();
+		$('#unpackdiv').prepend(allItems);
+	    $("#packed").empty();
+		calCount();
+	});
+
+	function calCount(){
+		var numUnpack = $("#unpackdiv").children('.checkbox').length;
+		$('#countUnPack').text('Unpacked Items('+numUnpack+')');
+		var numPack = $("#packed").children('.checkbox').length;
+		$('#countPack').text('Packed Items('+numPack+')');
+	}
+	
+});
+</script>
