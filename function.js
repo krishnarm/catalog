@@ -13,7 +13,7 @@ $(document).ready(function () {
 	//Search for Packed Items
 	$("#packedSearch").on("keyup", function () {
 	var value = $(this).val().toLowerCase();
-		$("#packed *").filter(function () {
+		$("#packed .checkbox").filter(function () {
 		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		});
 	});
