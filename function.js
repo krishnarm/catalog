@@ -5,7 +5,7 @@ $(document).ready(function () {
 	//Search for Unpacked Items
 	$("#unpackSearch").on("keyup", function () {
 	var value = $(this).val().toLowerCase();
-		$("#unpackdiv *").filter(function () {
+		$("#unpackdiv .checkbox").filter(function () {
 		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		});
 	});
@@ -21,7 +21,7 @@ $(document).ready(function () {
 	//add new items
 	$('.submit').click(function(){
 		var item = $('#addItem').val();
-		var newItem = '<div class="checkbox"><label><input type="checkbox" value="" class="chkBox"><p>'+ item +'</p></label><button type="button" class="btn remove" style="color: #F65E81;font-size: 11px;margin: 0px 0px 0px 11px;">Remove</button></div>';
+		var newItem = '<div class="checkbox"><label><input type="checkbox" value="" class="chkBox"><p>'+ item +'</p></label><button type="button" class="btn remove" style="color: #F65E81;font-size: 14px;margin: 0px 0px 0px 11px; background-color: transparent;">Remove</button></div>';
 		$("#unpackdiv").append(newItem);
 		var numUnpack = $("#unpackdiv").children('.checkbox').length;
 		$('#countUnPack').text('Unpacked Items('+numUnpack+')');
