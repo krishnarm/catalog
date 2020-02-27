@@ -1,0 +1,35 @@
+.checkbox {
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+.submit{
+	background-color: #d9534f ;
+	font-size: 14px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	border: 2px solid #e10d3d;
+	color: white;
+}
+.thickness{
+	border: 1px solid black;
+}
+.cont{
+	margin: auto;
+	max-width: 403px;
+}
+.itemStyle {
+	border: 1px solid #f32e5b;
+}
+.unpackStyle{
+	border: 1px solid #f32e5b;
+}
+.remove{
+	color: #F65E81;
+    font-size: 14px;
+    margin: 0px 0px 0px 11px;
+    background-color: transparent;
+}
+label{
+    font-size: 18px;
+}
